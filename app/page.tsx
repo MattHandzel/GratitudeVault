@@ -57,7 +57,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="bg-secondary py-4 text-center">
-        <p>Built with ❤️ by Your Name</p>
+        <p>Built with ❤️ by <a href={process.env.PERSONAL_WEBSITE}>Matt</a></p>
       </footer>
     </div>
   )
