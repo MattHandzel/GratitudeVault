@@ -2,9 +2,6 @@ import { getSession } from "next-auth/react";
 import clientPromise from "@/lib/mongodb";
 
 export default async function handler(req, res) {
-  console.log("req.method", req.method);
-  console.log("req.body", req.body);
-  return res.status(200).json({ message: "Hello from the API" });
   if (req.method === "POST") {
     console.log("req.body", req.body);
 
