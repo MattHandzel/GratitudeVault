@@ -120,6 +120,7 @@
 //}
 //
 export default function AboutPage() {
+
   // temp
-  return <div>about</div>;
+  return <div>About</div>;
 }
