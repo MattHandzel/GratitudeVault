@@ -23,6 +23,7 @@ const handler = NextAuth({
   pages: {
     signIn: '/auth/signin',
   },
+  secret: process.env.NEXTAUTH_SECRET,
 
 callbacks: {
     async signIn({ user  }) {

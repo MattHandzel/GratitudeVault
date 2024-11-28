@@ -1,25 +1,74 @@
 {
   "pages": {
-    "/auth/signin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/auth/signin/page.js"
+    "/_not-found/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/app/_not-found/page-e0c2c5bbd028b87a.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/css/9c82884345908de4.css",
+      "static/chunks/605-24160b02c2028135.js",
+      "static/chunks/app/layout-1c9ef38dfaab7594.js"
+    ],
+    "/about/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/app/about/page-e5ec37501416aadf.js"
+    ],
+    "/auth/signin/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/974-ea34688c0b79a26d.js",
+      "static/chunks/605-24160b02c2028135.js",
+      "static/chunks/app/auth/signin/page-51d88f04bfc6a0c7.js"
     ],
     "/gratitude-vault/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/gratitude-vault/page.js"
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/974-ea34688c0b79a26d.js",
+      "static/chunks/910-3adb4c016382a6ed.js",
+      "static/chunks/app/gratitude-vault/page-eefbb11899ad35e2.js"
     ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+    "/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/972-80df78a9a1dacb6b.js",
+      "static/chunks/app/page-1d05dd9034d5efdc.js"
+    ],
+    "/privacy-policy/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/app/privacy-policy/page-ac5184b10c439984.js"
+    ],
+    "/settings/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/app/settings/page-2a8497da954dc298.js"
+    ],
+    "/terms-of-service/page": [
+      "static/chunks/webpack-8db40c0f0ce1f953.js",
+      "static/chunks/fd9d1056-f9f33dc1c3f8eb7a.js",
+      "static/chunks/117-e68c06d6bb0f7daa.js",
+      "static/chunks/main-app-4d7173df3110f2b4.js",
+      "static/chunks/app/terms-of-service/page-2d81029312793c2c.js"
     ]
   }
 }
