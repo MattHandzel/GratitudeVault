@@ -56,14 +56,13 @@ callbacks: {
       return true; // Allow sign-in
     },
     async session({ session, token }) {
-      console.log("sessiosn", session)
-      console.log("ttoken", token)
-      session.user.id = crypto.createHash('sha256').update(session.user.email).digest('hex'); // Add user ID to session
+      session.user.id = crypto.createHash('sha256').update(session.user.email).digest('hex'); 
       return session;
     },
     async jwt({ token, user }) {
-      console.log("tuser", user)
+      //console.log("tuser", user)
       if (user) {
+        // dude
         token.sub = user.id; // Attach MongoDB user ID to the token
       }
       return token;
