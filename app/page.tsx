@@ -16,7 +16,7 @@ export default function LandingPage() {
           <h2 className="text-4xl font-bold mb-4">Unlock Happiness Through Gratitude</h2>
           <p className="text-xl mb-6">Your personal space to reflect, appreciate, and share what matters most.</p>
           <Link href="/auth/signin">
-            <Button size="lg">Get Started</Button>
+            <Button size="lg">Be Grateful!</Button>
           </Link>
         </section>
 
@@ -24,7 +24,7 @@ export default function LandingPage() {
           <h3 className="text-2xl font-semibold mb-4">Why Choose Gratitude Vault?</h3>
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              'Set up in 1 minute',
+              '1 Minute Setup',
               'Share your gratitude with the world',
               'Private and secure vault',
               'Daily gratitude reminders',
