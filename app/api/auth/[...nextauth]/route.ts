@@ -1,14 +1,14 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import EmailProvider from "next-auth/providers/email"
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import clientPromise from "@/lib/mongodb"
-import {v4 as uuidv4} from "uuid"
-import { UserSettings } from "@/lib/types"
-import crypto from "crypto"
-import { ThemeProvider } from "@/components/theme-provider"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "@/lib/mongodb";
+import { v4 as uuidv4 } from "uuid";
+import { UserSettings } from "@/lib/types";
+import crypto from "crypto";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const handler = NextAuth({
+export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -21,21 +21,29 @@ const handler = NextAuth({
     }),
   ],
   pages: {
-    signIn: '/auth/signin',
+    signIn: "/auth/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
 
-callbacks: {
-    async signIn({ user  }) {
+  callbacks: {
+    async signIn({ user }) {
       const client = await clientPromise;
       const db = client.db(process.env.DATABASE_NAME);
-      const usersCollection = db.collection("users");
+      const usersCollection = db.collection(process.env.COLLECTION_NAME);
 
       // Check if user already exists
       const existingUser = await usersCollection.findOne({ email: user.email });
       if (!existingUser) {
-        const userId = crypto.createHash('sha256').update(user.email).digest('hex');
-        const publicUrl = crypto.createHash('sha256').update(userId).digest('hex');
+        const userId = crypto
+          .createHash("sha256")
+          .update(user.email)
+          .digest("hex");
+
+        const publicUrl = crypto
+          .createHash("sha256")
+          .update(userId)
+          .digest("hex");
+
         await usersCollection.insertOne({
           id: userId,
           name: user.name,
@@ -45,18 +53,19 @@ callbacks: {
           publicUrl: publicUrl,
           settings: {
             theme: "system",
-            soundEnabled : true,
-            remindersEnabled : true,
+            soundEnabled: true,
+            remindersEnabled: true,
           },
-
-
         });
       }
 
       return true; // Allow sign-in
     },
     async session({ session, token }) {
-      session.user.id = crypto.createHash('sha256').update(session.user.email).digest('hex'); 
+      session.user.id = crypto
+        .createHash("sha256")
+        .update(session.user.email)
+        .digest("hex");
       return session;
     },
     async jwt({ token, user }) {
@@ -68,8 +77,7 @@ callbacks: {
       return token;
     },
   },
+};
+const handler = NextAuth(authOptions);
 
-})
-
-export { handler as GET, handler as POST }
-
+export { handler as GET, handler as POST };

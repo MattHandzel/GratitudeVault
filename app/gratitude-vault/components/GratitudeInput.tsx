@@ -5,8 +5,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { HelpCircle } from 'lucide-react'
-import { addGratitude } from '@/lib/data.ts'
-
 interface GratitudeInputProps {
   onAddGratitude: (gratitude: { title: string; content: string; isPublic: boolean }) => void
 }
@@ -23,7 +21,7 @@ export function GratitudeInput({ onAddGratitude }: GratitudeInputProps) {
       setContent('')
       setIsPublic(false)
 
-      addGratitude({title, content, isPublic})
+      
 
 
     }
