@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"app/gratitude-vault/page.tsx -> ./components/Vault\":{\"id\":\"app/gratitude-vault/page.tsx -> ./components/Vault\",\"files\":[\"static/chunks/_app-pages-browser_app_gratitude-vault_components_Vault_tsx.js\"]}}"

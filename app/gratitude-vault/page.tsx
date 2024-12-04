@@ -1,11 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Vault } from './components/Vault'
+
 import { GratitudeInput } from './components/GratitudeInput'
 import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/hooks/use-toast'
 import { getGratitudes, addGratitude } from '@/lib/data'
+  import dynamic from 'next/dynamic';
+
+const _Vault = dynamic(() => import ('./components/Vault'), {
+  ssr: false,
+});
 
 export default function GratitudeVaultPage() {
   const [gratitudes, setGratitudes] = useState<Array<{ title: string; content: string; isPublic: boolean }>>([])
@@ -50,7 +55,7 @@ export default function GratitudeVaultPage() {
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-background text-foreground p-4">
-      <Vault gratitudes={gratitudes} />
+      <_Vault gratitudes={gratitudes} />
       <div className="flex-grow md:ml-4">
         <GratitudeInput onAddGratitude={updateGratitudes} />
       </div>
