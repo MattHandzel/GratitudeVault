@@ -17,7 +17,6 @@ async function addGratitude(gratitude) {
     } else {
       console.error("Error adding gratitude 2:", result);
     }
-    console.log("3");
   } catch (error) {
     console.error("Error adding gratitude 3:", error.message);
   }
