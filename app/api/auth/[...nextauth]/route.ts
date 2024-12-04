@@ -27,6 +27,7 @@ export const authOptions = {
 
   callbacks: {
     async signIn({ user }) {
+      console.log("Sign in attempt :)");
       const client = await clientPromise;
       const db = client.db(process.env.DATABASE_NAME);
       const usersCollection = db.collection(process.env.COLLECTION_NAME);
@@ -60,6 +61,10 @@ export const authOptions = {
       }
 
       return true; // Allow sign-in
+    },
+    async redirect({ url, baseUrl }) {
+      console.log("Redirect:", { url, baseUrl });
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
     async session({ session, token }) {
       session.user.id = crypto
