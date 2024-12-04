@@ -59,4 +59,23 @@ async function getPublicGratitudes(publicUrl: string) {
   }
 }
 
-export { addGratitude, getGratitudes, getPublicGratitudes };
+async function getUserInfo(publicUrl: string) {
+  try {
+    const response = await fetch(
+      process.env.NEXTAUTH_URL + `/api/user-info/${publicUrl}`,
+    );
+    const result = await response.json();
+    if (response.ok) {
+      console.log("User information retrieved:", result);
+      return result.user;
+    } else {
+      console.error("Error retrieving user information:", result);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error retrieving user information:", error.message);
+    return null;
+  }
+}
+
+export { addGratitude, getGratitudes, getPublicGratitudes, getUserInfo };
