@@ -71,6 +71,10 @@ export const authOptions = {
         .createHash("sha256")
         .update(session.user.email)
         .digest("hex");
+      session.user.publicUrl = crypto
+        .createHash("sha256")
+        .update(session.user.id)
+        .digest("hex");
       return session;
     },
     async jwt({ token, user }) {

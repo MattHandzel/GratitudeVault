@@ -4,6 +4,7 @@ import { PublicVault } from '@/components/PublicVault'
 
 export default async function PublicGratitudeVaultPage({ params }: { params: { public_url: string } }) {
   const publicGratitudes = await getPublicGratitudes(params.public_url)
+  console.log("PUblic gratitdes", publicGratitudes)
 
   return (
     <div className="container mx-auto px-4 py-8">
