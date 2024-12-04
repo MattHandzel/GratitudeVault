@@ -20,6 +20,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/gratitude-vault/page.js"
+    ],
+    "/gratitude-vault/[public_url]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/gratitude-vault/[public_url]/page.js"
     ]
   }
 }

@@ -1,7 +1,7 @@
-import Link from 'next/link'
+'use client'
 import { Button } from '@/components/ui/button'
 import { CheckCircle } from 'lucide-react'
-
+import { signIn } from 'next-auth/react'
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -15,9 +15,9 @@ export default function LandingPage() {
         <section className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Unlock Happiness Through Gratitude</h2>
           <p className="text-xl mb-6">Your personal space to reflect, appreciate, and share what matters most.</p>
-          <Link href="/auth/signin">
-            <Button size="lg">Be Grateful!</Button>
-          </Link>
+            <Button onClick={() => signIn('google', { callbackUrl: '/gratitude-vault' })} >
+              Be Grateful!
+            </Button>
         </section>
 
         <section className="mb-12">

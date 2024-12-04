@@ -37,5 +37,25 @@ async function getGratitudes() {
     console.error("Error retrieving gratitudes:", error.message);
   }
 }
+async function getPublicGratitudes(publicUrl: string) {
+  try {
+    const response = await fetch(
+      process.env.NEXTAUTH_URL + `/api/public-gratitude/${publicUrl}`,
+    );
+    const result = await response.json();
+    if (response.ok) {
+      console.log("Public gratitudes retrieved:", result);
+      return result.gratitudes;
+    } else {
+      console.error("Error retrieving public gratitudes:", result);
+      console.log("result", result);
+      return [];
+    }
+  } catch (error) {
+    console.error("Error retrieving public gratitudes:", error.message);
+    console.error("Error retrieving public gratitudes:", error);
+    return [];
+  }
+}
 
-export { addGratitude, getGratitudes };
+export { addGratitude, getGratitudes, getPublicGratitudes };

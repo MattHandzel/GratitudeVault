@@ -19,6 +19,7 @@ export function Vault({ gratitudes }: VaultProps) {
           <Settings className="mr-2 h-4 w-4" />
           Settings
         </Button>
+
         <Button variant="outline" size="sm">
           <Share2 className="mr-2 h-4 w-4" />
           Share
@@ -28,7 +29,7 @@ export function Vault({ gratitudes }: VaultProps) {
         {gratitudes.map((gratitude, index) => (
           <div key={index} className="bg-background p-2 rounded mb-2">
             <h3 className="font-semibold">{gratitude.title}</h3>
-            <p className="text-sm">{gratitude.content.slice(0, 50)}...</p>
+            <p className="text-sm">{gratitude.content.slice(0, 50)}</p>
             {gratitude.isPublic && <span className="text-xs text-blue-500">Public</span>}
           </div>
         ))}
