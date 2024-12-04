@@ -64,7 +64,7 @@ export const authOptions = {
     },
     async redirect({ url, baseUrl }) {
       console.log("Redirect:", { url, baseUrl });
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      return url.startsWith(baseUrl) ? url : baseUrl + url;
     },
     async session({ session, token }) {
       session.user.id = crypto
