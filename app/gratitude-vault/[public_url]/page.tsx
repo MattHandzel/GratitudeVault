@@ -6,6 +6,8 @@ export default async function PublicGratitudeVaultPage({ params }: { params: { p
   const publicGratitudes = await getPublicGratitudes(params.public_url)
   const userInfo = await getUserInfo(params.public_url)
 
+  console.log("PublicGratitudeVaultPage", publicGratitudes, userInfo)
+
   if (!userInfo) {
     return (
       <div className="container mx-auto px-4 py-8">

@@ -13,14 +13,13 @@ export async function GET(
     const collection = db.collection(process.env.COLLECTION_NAME);
 
     const user = await collection.findOne({ publicUrl: publicUrl });
-    console.log("penis", user);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     const publicGratitudes = user.gratitudes.filter(
-      (gratitude: any) => gratitude.isPublic,
+      (gratitude: any) => gratitude.privacyLevel === "public",
     );
     console.log("api public gratitudes", publicGratitudes);
 

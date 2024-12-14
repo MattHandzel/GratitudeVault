@@ -5,25 +5,38 @@ import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { HelpCircle } from 'lucide-react'
+import { Gratitude } from '@/lib/types'
+
 interface GratitudeInputProps {
-  onAddGratitude: (gratitude: { title: string; content: string; isPublic: boolean }) => void
+  onAddGratitude: (gratitude: Gratitude) => void
 }
 
 export function GratitudeInput({ onAddGratitude }: GratitudeInputProps) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [isPublic, setIsPublic] = useState(false)
+  const [privacyLevel, setPrivacyLevel] = useState<'private' | 'public'>('private')
+  const [tags, setTags] = useState<string[]>([])
+  const [category, setCategory] = useState('')
+  const [author, setAuthor] = useState('me')
 
   const handleSubmit = () => {
     if (title && content) {
-      onAddGratitude({ title, content, isPublic })
+      const newGratitude: Gratitude = {
+        title,
+        content,
+        privacyLevel,
+        createdTimestamp: new Date().toISOString(),
+        tags,
+        category,
+        author
+      }
+      onAddGratitude(newGratitude)
       setTitle('')
       setContent('')
-      setIsPublic(false)
-
-      
-
-
+      setPrivacyLevel('private')
+      setTags([])
+      setCategory('')
+      setAuthor('me')
     }
   }
 
@@ -43,14 +56,25 @@ export function GratitudeInput({ onAddGratitude }: GratitudeInputProps) {
         className="mb-2"
         rows={5}
       />
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-2">
-          <Switch id="public" checked={isPublic} onCheckedChange={setIsPublic} />
-          <Label htmlFor="public">Make this gratitude public</Label>
-        </div>
-        <Button variant="outline" size="icon">
-          <HelpCircle className="h-4 w-4" />
-        </Button>
+      <Input
+        placeholder="Tags (comma-separated, optional)"
+        value={tags.join(', ')}
+        onChange={(e) => setTags(e.target.value.split(',').map(tag => tag.trim()))}
+        className="mb-2"
+      />
+      <Input
+        placeholder="Category"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        className="mb-2"
+      />
+      <div className="flex items-center space-x-2">
+        <Switch
+          id="privacy"
+          checked={privacyLevel === 'public'}
+          onCheckedChange={(checked) => setPrivacyLevel(checked ? 'public' : 'private')}
+        />
+        <Label htmlFor="privacy">Make this gratitude public</Label>
       </div>
       <div className="flex justify-end space-x-2">
         <Button onClick={() => console.log('Get prompt')}>Get Prompt</Button>

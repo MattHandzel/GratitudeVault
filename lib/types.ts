@@ -1,5 +1,5 @@
 export interface UserSettings {
-  theme: 'light' | 'dark' | 'system';
+  theme: "light" | "dark" | "system";
   soundEnabled: boolean;
   remindersEnabled: boolean;
 }
@@ -8,12 +8,21 @@ export interface Gratitude {
   id: string;
   title: string;
   content: string;
-  timestamp: number;
-  isPublic: boolean;
-  tags: string[];
-  vault: 'public' | 'private' | string;
+  createdTimestamp: number;
+  privacyLevel: "private" | "friends-only" | "public";
+  tags: string[];
+  vault?: "public" | "private" | string;
   linkedEntities: string[];
   mediaUrls: string[];
+  category: string;
+  author: string;
+  location?: string;
+  mood?: string;
+  attachments?: string[];
+  editedTimestamp?: number;
+  sharedWith?: string[];
+  lastReminded?: number;
+  archived?: boolean;
 }
 
 export interface User {

@@ -31,6 +31,7 @@ async function getPublicGratitudes(publicUrl: string) {
       process.env.NEXTAUTH_URL + `/api/public-gratitude/${publicUrl}`,
     );
     const result = await response.json();
+    console.log("getPublicGratitudes", result);
 
     if (response.ok) {
       return result.gratitudes;
