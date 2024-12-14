@@ -5,11 +5,10 @@ import { Settings, Share2, Compass } from 'lucide-react'
 import Link from 'next/link'
 import { useSession} from 'next-auth/react'
 import {useToast} from '@/hooks/use-toast'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 interface VaultProps {
   gratitudes: Array<{ title: string; content: string; isPublic: boolean }>
 }
-const baseUrl = `${window.location.protocol}//${window.location.host}`;
 
 const copyToClipboard = async (url) => {
   try {
@@ -55,6 +54,10 @@ const copyToClipboard = async (url) => {
 export function Vault({ gratitudes }: VaultProps) {
   const { data: session } = useSession()
   const { toast } = useToast()
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   return (
     <div className="w-full md:w-1/3 bg-secondary p-4 rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Your Gratitude Vault</h2>
@@ -69,12 +72,19 @@ export function Vault({ gratitudes }: VaultProps) {
         </Button>
 
           <Button variant="outline" size="sm" onClick={() => {
+            const baseUrl = `${window.location.protocol}//${window.location.host}`;
             const thingToCopy = baseUrl +`/gratitude-vault/${session?.user?.publicUrl}` 
-            toast({
-              title: "Copied to clipboard",
-              description: thingToCopy,
-                        })
-            copyToClipboard(thingToCopy)
+            if (isClient){
+              toast({
+                title: "Copied to clipboard",
+                description: thingToCopy,
+                          })
+              copyToClipboard(thingToCopy)
+            }
+            else{
+              toast({
+                title: "Please copy to clipboard to share!", description: thingToCopy});
+            }
           }}
             >
           
