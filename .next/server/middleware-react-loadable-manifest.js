@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/gratitude-vault/page.tsx -> ./components/Vault\":{\"id\":\"app/gratitude-vault/page.tsx -> ./components/Vault\",\"files\":[\"static/chunks/_app-pages-browser_app_gratitude-vault_components_Vault_tsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST='{"app/gratitude-vault/page.tsx -> ./components/Vault":{"id":6547,"files":["static/chunks/605-327b8f900fbe78cf.js","static/chunks/255-30ba1e44269aa876.js","static/chunks/547.7c916301e187c4bd.js"]}}';
