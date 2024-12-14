@@ -14,6 +14,7 @@ export function PublicVault({ gratitudes }: any) {
   // get the lengith of gratitudes
   //
 
+          //{JSON.stringify(gratitude, null, 2)}
   return (
     <ScrollArea className="h-[calc(100vh-200px)]">
       {publicGratitudes.length === 0 ? (
@@ -21,7 +22,6 @@ export function PublicVault({ gratitudes }: any) {
       ) : (
         publicGratitudes.map((gratitude, index) => (
           <div key={index} className="bg-secondary p-4 rounded mb-4">
-          {JSON.stringify(gratitude, null, 2)}
             <h3 className="font-semibold text-lg">{gratitude.title}</h3>
             <p className="mt-2">{gratitude.content}</p>
             <div className="flex justify-between items-center mt-4">
