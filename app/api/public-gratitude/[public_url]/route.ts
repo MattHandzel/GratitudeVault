@@ -21,7 +21,7 @@ export async function GET(
     const publicGratitudes = user.gratitudes.filter(
       (gratitude: any) => gratitude.privacyLevel === "public",
     );
-    console.log("api public gratitudes", publicGratitudes);
+    //console.log("api public gratitudes", publicGratitudes);
 
     return NextResponse.json({ gratitudes: publicGratitudes }, { status: 200 });
   } catch (error) {
