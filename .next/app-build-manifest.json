@@ -1,15 +1,20 @@
 {
   "pages": {
-    "/gratitude-vault/[public_url]/page": [
+    "/gratitude-vault/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/gratitude-vault/[public_url]/page.js"
+      "static/chunks/app/gratitude-vault/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/settings/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/settings/page.js"
     ]
   }
 }

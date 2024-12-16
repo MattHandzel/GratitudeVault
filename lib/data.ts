@@ -45,7 +45,6 @@ async function getPublicGratitudes(publicUrl: string) {
   }
 }
 
-# aoei
 async function getUserInfo(publicUrl: string) {
   try {
     const response = await fetch(
