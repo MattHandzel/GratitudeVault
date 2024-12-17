@@ -2,5 +2,5 @@
   "/gratitude-vault/[public_url]/page": "app/gratitude-vault/[public_url]/page.js",
   "/page": "app/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/public-gratitude/[public_url]/route": "app/api/public-gratitude/[public_url]/route.js"
+  "/api/user-info/[public_url]/route": "app/api/user-info/[public_url]/route.js"
 }

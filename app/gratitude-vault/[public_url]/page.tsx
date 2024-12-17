@@ -1,7 +1,6 @@
 import { getPublicGratitudes, getUserInfo } from '@/lib/data'
 import { PublicVault } from '@/components/PublicVault'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {useRouter} from "next/router";
 
 export default async function PublicGratitudeVaultPage({ params }: { params: { public_url: string } }) {
   const publicGratitudes = await getPublicGratitudes(params.public_url)

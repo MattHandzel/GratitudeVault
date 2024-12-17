@@ -50,6 +50,7 @@ async function getUserInfo(publicUrl: string) {
   try {
     const response = await fetch(
       process.env.NEXTAUTH_URL + `/api/user-info/${publicUrl}`,
+      { cache: "no-store" },
     );
     const result = await response.json();
     if (response.ok) {
