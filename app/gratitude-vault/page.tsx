@@ -1,17 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-
 import { GratitudeInput } from './components/GratitudeInput'
 import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/hooks/use-toast'
 import { getGratitudes, addGratitude } from '@/lib/data'
 import { Vault } from './components/Vault'
-
+import { theme } from '@/lib/theme'
 
 export default function GratitudeVaultPage() {
-  const [gratitudes, setGratitudes] = useState<Array<{ title: string; content: string; isPublic: boolean }>>([])
+  const [gratitudes, setGratitudes] = useState([])
   const { toast } = useToast()
+  const [lastGratitudeDate, setLastGratitudeDate] = useState(null)
 
   useEffect(() => {
     fetchGratitudes()
@@ -19,9 +19,9 @@ export default function GratitudeVaultPage() {
 
   const fetchGratitudes = async () => {
     try {
-      const fetchedGratitudes = (await getGratitudes())
-      console.log("Gratitudes from fetch Gratitudes", fetchedGratitudes)
+      const fetchedGratitudes = await getGratitudes()
       setGratitudes(fetchedGratitudes)
+      updateLastGratitudeDate(fetchedGratitudes)
     } catch (error) {
       console.error("Error fetching gratitudes:", error)
       toast({
@@ -32,10 +32,17 @@ export default function GratitudeVaultPage() {
     }
   }
 
-  const updateGratitudes = async (newGratitude: { title: string; content: string; isPublic: boolean }) => {
+  const updateLastGratitudeDate = (gratitudes) => {
+    if (gratitudes.length > 0) {
+      const lastGratitude = gratitudes[gratitudes.length - 1]
+      setLastGratitudeDate(new Date(lastGratitude.createdTimestamp))
+    }
+  }
+
+  const updateGratitudes = async (newGratitude) => {
     try {
       await addGratitude(newGratitude)
-      await fetchGratitudes() // Refetch gratitudes after adding a new one
+      await fetchGratitudes()
       toast({
         title: "Gratitude Added",
         description: "Your gratitude has been added to the vault.",
@@ -50,13 +57,33 @@ export default function GratitudeVaultPage() {
     }
   }
 
+  const isGratitudeAddedToday = () => {
+    if (!lastGratitudeDate) return false
+    const today = new Date()
+    return (
+      lastGratitudeDate.getDate() === today.getDate() &&
+      lastGratitudeDate.getMonth() === today.getMonth() &&
+      lastGratitudeDate.getFullYear() === today.getFullYear()
+    )
+  }
+
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-background text-foreground p-4">
-      <Vault gratitudes={gratitudes} />
-      <div className="flex-grow md:ml-4">
-        <GratitudeInput onAddGratitude={updateGratitudes} />
+    <div 
+      className="flex flex-col md:flex-row h-screen p-4"
+      style={{
+        background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+        color: theme.colors.text,
+      }}
+    >
+      <div className="flex-grow md:mr-4">
+        <GratitudeInput 
+          onAddGratitude={updateGratitudes} 
+          isGratitudeAddedToday={isGratitudeAddedToday()}
+        />
       </div>
+      <Vault gratitudes={gratitudes} />
       <Toaster />
     </div>
   )
 }
+

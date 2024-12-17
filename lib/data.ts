@@ -34,7 +34,8 @@ async function getPublicGratitudes(publicUrl: string) {
     console.log("getPublicGratitudes", result);
 
     if (response.ok) {
-      return result.gratitudes;
+      const gratitudes = result.gratitudes.reverse();
+      return gratitudes;
     } else {
       return [];
     }

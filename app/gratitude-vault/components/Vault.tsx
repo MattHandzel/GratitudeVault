@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useEffect, useState } from 'react'
 import { Gratitude } from '@/lib/types'
 import { Badge } from '@/components/ui/badge'
+import { theme } from '@/lib/theme'
 
 interface VaultProps {
   gratitudes: Gratitude[]
@@ -31,14 +32,22 @@ export function Vault({ gratitudes }: VaultProps) {
   }, [])
 
   return (
-    <div className="w-full md:w-1/3 bg-secondary p-4 rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Your Gratitude Vault</h2>
+    <div className="w-full md:w-1/3 bg-white p-4 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-4" style={{ color: theme.colors.text }}>Your Gratitude Vault</h2>
       <div className="flex space-x-2 mb-4">
-        <Button variant="outline" size="sm">
+        <Button 
+          variant="outline" 
+          size="sm"
+          style={{ borderColor: theme.colors.primary, color: theme.colors.text }}
+        >
           <Compass className="mr-2 h-4 w-4" />
           Explore
         </Button>
-        <Button variant="outline" size="sm">
+        <Button 
+          variant="outline" 
+          size="sm"
+          style={{ borderColor: theme.colors.primary, color: theme.colors.text }}
+        >
           <Settings className="mr-2 h-4 w-4" />
           Settings
         </Button>
@@ -54,6 +63,7 @@ export function Vault({ gratitudes }: VaultProps) {
             })
             if (isClient) copyToClipboard(thingToCopy)
           }}
+          style={{ borderColor: theme.colors.primary, color: theme.colors.text }}
         >
           <Share2 className="mr-2 h-4 w-4" />
           Share
@@ -61,26 +71,33 @@ export function Vault({ gratitudes }: VaultProps) {
       </div>
       <ScrollArea className="h-[calc(100vh-200px)]">
         {gratitudes.map((gratitude, index) => (
-          <div key={index} className="bg-background p-4 rounded mb-4">
-            <h3 className="font-semibold text-lg">{gratitude.title}</h3>
-            <p className="mt-2">{gratitude.content}</p>
+          <div 
+            key={index} 
+            className="bg-white p-4 rounded mb-4 shadow"
+            style={{
+              borderLeft: `4px solid ${gratitude.privacyLevel === 'public' ? theme.colors.accent : theme.colors.privateIcon}`,
+              transition: 'all 0.3s ease-in-out',
+            }}
+          >
+            <h3 className="font-semibold text-lg" style={{ color: theme.colors.text }}>{gratitude.title}</h3>
+            <p className="mt-2" style={{ color: theme.colors.text }}>{gratitude.content}</p>
             <div className="flex justify-between items-center mt-4">
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm" style={{ color: theme.colors.text }}>
                 {new Date(gratitude.createdTimestamp).toLocaleDateString()}
               </span>
               <Badge variant={gratitude.privacyLevel === 'public' ? 'default' : 'secondary'}>
                 {gratitude.privacyLevel}
               </Badge>
             </div>
-            {gratitude.hasOwnProperty("tags") && gratitude.tags.length > 0 && (
+            {gratitude.tags && gratitude.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-2">
                 {gratitude.tags.map((tag, tagIndex) => (
-                  <Badge key={tagIndex} variant="outline">{tag}</Badge>
+                  <Badge key={tagIndex} variant="outline" style={{ borderColor: theme.colors.accent }}>{tag}</Badge>
                 ))}
               </div>
             )}
             {gratitude.category && (
-              <Badge className="mt-2" variant="outline">{gratitude.category}</Badge>
+              <Badge className="mt-2" variant="outline" style={{ borderColor: theme.colors.primary }}>{gratitude.category}</Badge>
             )}
           </div>
         ))}
