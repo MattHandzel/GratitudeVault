@@ -77,7 +77,8 @@ export function GratitudeInput({ onAddGratitude }: GratitudeInputProps) {
         <Label htmlFor="privacy">Make this gratitude public</Label>
       </div>
       <div className="flex justify-end space-x-2">
-        <Button onClick={() => console.log('Get prompt')}>Get Prompt</Button>
+        <Button onClick={() => {
+        }}>Get Prompt</Button>
         <Button onClick={handleSubmit}>Add to Vault</Button>
       </div>
     </div>
