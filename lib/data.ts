@@ -50,7 +50,6 @@ async function getUserInfo(publicUrl: string) {
   try {
     const response = await fetch(
       process.env.NEXTAUTH_URL + `/api/user-info/${publicUrl}`,
-      { cache: "no-store" },
     );
     const result = await response.json();
     if (response.ok) {
@@ -65,4 +64,24 @@ async function getUserInfo(publicUrl: string) {
   }
 }
 
-export { addGratitude, getGratitudes, getPublicGratitudes, getUserInfo };
+async function getAllPublicUrls() {
+  try {
+    const response = await fetch(
+      process.env.NEXTAUTH_URL + "/api/public-pages/",
+    );
+    const result = await response.json();
+    console.log("getAllPublicUrls", result);
+    if (response.ok) {
+      return result.publicUrls;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+}
+
+
+export { addGratitude, getGratitudes, getPublicGratitudes, getUserInfo, getAllPublicUrls };
