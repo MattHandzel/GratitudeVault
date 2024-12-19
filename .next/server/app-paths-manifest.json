@@ -1,6 +1,4 @@
 {
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/api/public-gratitude/[public_url]/route": "app/api/public-gratitude/[public_url]/route.js",
-  "/api/user-info/[publicUrl]/route": "app/api/user-info/[publicUrl]/route.js",
-  "/gratitude-vault/[publicUrl]/page": "app/gratitude-vault/[publicUrl]/page.js"
+  "/api/user-info/[publicUrl]/route": "app/api/user-info/[publicUrl]/route.js"
 }

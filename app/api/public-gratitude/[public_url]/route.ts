@@ -3,9 +3,9 @@ import clientPromise from "@/lib/mongodb";
 
 export async function GET(
   request: Request,
-  { params }: { params: { public_url: string } },
+  { params }: { params: { publicUrl: string } },
 ) {
-  const publicUrl = params.public_url;
+  const publicUrl = params.publicUrl;
 
   try {
     const client = await clientPromise;

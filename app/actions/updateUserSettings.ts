@@ -1,6 +1,6 @@
 'use server'
 
-import { connectToDatabase } from '@/lib/mongodb'
+import clientPromise from '@/lib/mongodb'
 
 interface UserSettings {
   theme: string
@@ -8,7 +8,8 @@ interface UserSettings {
 }
 
 export async function updateUserSettings(email: string, settings: UserSettings) {
-  const { db } = await connectToDatabase()
+    const client = await clientPromise;
+    const db = client.db(process.env.DATABASE_NAME);
 
   const result = await db.collection('users').updateOne(
     { email },
