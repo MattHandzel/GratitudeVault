@@ -1,5 +1,1 @@
-{
-  "node": {},
-  "edge": {},
-  "encryptionKey": "9r8uBfbzfeRmrGGk5UvkkLko1+BAnYbKmUUT7KQEqGs="
-}
+{"node":{"ed5a90a235918948c76d9489d26bdfdd84ece596":{"workers":{"app/settings/page":"9191"},"layer":{"app/settings/page":"action-browser"}}},"edge":{},"encryptionKey":"5pLImoqtSg0yZy46N99pfi9DWFlQkHEkGzYlEOV86ZA="}
