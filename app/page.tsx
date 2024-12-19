@@ -2,7 +2,11 @@
 import { Button } from '@/components/ui/button'
 import { CheckCircle } from 'lucide-react'
 import { signIn } from 'next-auth/react'
+
+
+
 export default function LandingPage() {
+  //const metadata = await fetch('/api/gratitude-vault-metadata').then((res) => res.json())
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-primary text-primary-foreground py-4">

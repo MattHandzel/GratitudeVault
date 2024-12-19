@@ -52,6 +52,7 @@
     "next-themes": "latest",
     "nodemailer": "latest",
     "react": "^18",
+    "react-confetti-explosion": "^2.1.2",
     "react-day-picker": "8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.45.4",

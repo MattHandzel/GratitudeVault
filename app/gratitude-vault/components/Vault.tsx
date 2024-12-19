@@ -1,4 +1,3 @@
-"use client"
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Settings, Share2, Compass } from 'lucide-react'
@@ -6,11 +5,13 @@ import { useSession } from 'next-auth/react'
 import { useToast } from '@/hooks/use-toast'
 import { useEffect, useState } from 'react'
 import { Gratitude } from '@/lib/types'
-import { Badge } from '@/components/ui/badge'
 import { theme } from '@/lib/theme'
+import { GratitudeCard } from '@/components/GratitudeCard'
+import { getGratitudes } from '@/lib/data'
 
 interface VaultProps {
-  gratitudes: Gratitude[]
+  initialGratitudes: Gratitude[],
+  fetchGratitudes: () => void
 }
 
 const copyToClipboard = async (url: string) => {
@@ -22,23 +23,41 @@ const copyToClipboard = async (url: string) => {
   }
 }
 
-export function Vault({ gratitudes }: VaultProps) {
+export function Vault({ initialGratitudes, fetchGratitudes }: VaultProps) {
   const { data: session } = useSession()
   const { toast } = useToast()
   const [isClient, setIsClient] = useState(false)
+  const [gratitudes, setGratitudes] = useState(initialGratitudes)
+  console.log('initialGratitudes', initialGratitudes)
+
+  if(initialGratitudes != gratitudes)
+    {
+    setGratitudes(initialGratitudes)
+    }
+
+
+  const refreshGratitudes = async () => {
+    console.log("running fetch gratiudes from child")
+    await fetchGratitudes()
+  }
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
   return (
-    <div className="w-full md:w-1/3 bg-white p-4 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4" style={{ color: theme.colors.text }}>Your Gratitude Vault</h2>
-      <div className="flex space-x-2 mb-4">
+    <div className="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+      <h2 className="text-3xl font-bold mb-6" style={{ color: theme.colors.primary }}>Your Gratitude Vault</h2>
+      <div className="flex space-x-2 mb-6">
         <Button 
           variant="outline" 
           size="sm"
-          style={{ borderColor: theme.colors.primary, color: theme.colors.text }}
+          className="button-hover flex-1"
+          style={{ 
+            backgroundColor: 'white',
+            color: theme.colors.text,
+            border: `1px solid ${theme.colors.primary}`,
+          }}
         >
           <Compass className="mr-2 h-4 w-4" />
           Explore
@@ -46,7 +65,12 @@ export function Vault({ gratitudes }: VaultProps) {
         <Button 
           variant="outline" 
           size="sm"
-          style={{ borderColor: theme.colors.primary, color: theme.colors.text }}
+          className="button-hover flex-1"
+          style={{ 
+            backgroundColor: 'white',
+            color: theme.colors.text,
+            border: `1px solid ${theme.colors.primary}`,
+          }}
         >
           <Settings className="mr-2 h-4 w-4" />
           Settings
@@ -54,6 +78,7 @@ export function Vault({ gratitudes }: VaultProps) {
         <Button
           variant="outline"
           size="sm"
+          className="button-hover flex-1"
           onClick={() => {
             const baseUrl = isClient ? `${window.location.protocol}//${window.location.host}` : process.env.NEXTAUTH_URL
             const thingToCopy = `${baseUrl}/gratitude-vault/${session?.user?.publicUrl}`
@@ -63,44 +88,26 @@ export function Vault({ gratitudes }: VaultProps) {
             })
             if (isClient) copyToClipboard(thingToCopy)
           }}
-          style={{ borderColor: theme.colors.primary, color: theme.colors.text }}
+          style={{ 
+            backgroundColor: 'white',
+            color: theme.colors.text,
+            border: `1px solid ${theme.colors.primary}`,
+          }}
         >
           <Share2 className="mr-2 h-4 w-4" />
           Share
         </Button>
       </div>
-      <ScrollArea className="h-[calc(100vh-200px)]">
-        {gratitudes.map((gratitude, index) => (
-          <div 
-            key={index} 
-            className="bg-white p-4 rounded mb-4 shadow"
-            style={{
-              borderLeft: `4px solid ${gratitude.privacyLevel === 'public' ? theme.colors.accent : theme.colors.privateIcon}`,
-              transition: 'all 0.3s ease-in-out',
-            }}
-          >
-            <h3 className="font-semibold text-lg" style={{ color: theme.colors.text }}>{gratitude.title}</h3>
-            <p className="mt-2" style={{ color: theme.colors.text }}>{gratitude.content}</p>
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-sm" style={{ color: theme.colors.text }}>
-                {new Date(gratitude.createdTimestamp).toLocaleDateString()}
-              </span>
-              <Badge variant={gratitude.privacyLevel === 'public' ? 'default' : 'secondary'}>
-                {gratitude.privacyLevel}
-              </Badge>
-            </div>
-            {gratitude.tags && gratitude.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
-                {gratitude.tags.map((tag, tagIndex) => (
-                  <Badge key={tagIndex} variant="outline" style={{ borderColor: theme.colors.accent }}>{tag}</Badge>
-                ))}
-              </div>
-            )}
-            {gratitude.category && (
-              <Badge className="mt-2" variant="outline" style={{ borderColor: theme.colors.primary }}>{gratitude.category}</Badge>
-            )}
-          </div>
-        ))}
+      <ScrollArea className="h-[calc(100vh-250px)]">
+        <div className="space-y-4">
+          {gratitudes.map((gratitude, index) => (
+            <GratitudeCard 
+              key={index} 
+              gratitude={gratitude} 
+              onUpdate={refreshGratitudes}
+            />
+          ))}
+        </div>
       </ScrollArea>
     </div>
   )

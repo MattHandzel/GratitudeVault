@@ -3,10 +3,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Lock, Unlock } from 'lucide-react'
+import { Globe, Lock } from 'lucide-react'
 import { Gratitude } from '@/lib/types'
 import { theme } from '@/lib/theme'
 import { GRATITUDE_PROMPTS } from '@/lib/vars'
+import ConfettiExplosion from 'react-confetti-explosion'
 
 interface GratitudeInputProps {
   onAddGratitude: (gratitude: Gratitude) => void
@@ -19,9 +20,10 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
   const [privacyLevel, setPrivacyLevel] = useState<'private' | 'public'>('private')
   const [tags, setTags] = useState<string[]>([])
   const [category, setCategory] = useState('')
-  const explosionRef = useRef<HTMLDivElement>(null)
+  const [isExploding, setIsExploding] = useState(false)
+  const [explosionPosition, setExplosionPosition] = useState({ x: 0, y: 0 })
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (title && content) {
       const newGratitude: Gratitude = {
         title,
@@ -30,7 +32,8 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
         createdTimestamp: new Date().toISOString(),
         tags,
         category,
-        author: 'me'
+        author: 'me',
+        archived: false,
       }
       onAddGratitude(newGratitude)
       setTitle('')
@@ -40,14 +43,9 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
       setCategory('')
 
       // Trigger explosion animation
-      if (explosionRef.current) {
-        explosionRef.current.classList.add('save-explosion')
-        setTimeout(() => {
-          if (explosionRef.current) {
-            explosionRef.current.classList.remove('save-explosion')
-          }
-        }, 500)
-      }
+      setExplosionPosition({ x: e.clientX, y: e.clientY })
+      setIsExploding(true)
+      setTimeout(() => setIsExploding(false), 2000)
     }
   }
 
@@ -58,7 +56,7 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
 
   return (
     <div 
-      className="bg-white p-6 rounded-lg shadow-lg"
+      className="bg-white p-6 rounded-lg shadow-lg relative overflow-hidden"
       style={{
         background: isGratitudeAddedToday ? theme.colors.secondary : `linear-gradient(135deg, ${theme.colors.secondary}, ${theme.colors.complement})`,
         transition: 'background 0.5s ease-in-out',
@@ -101,8 +99,13 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
           className="button-hover"
           onClick={() => setPrivacyLevel(privacyLevel === 'public' ? 'private' : 'public')}
           title={privacyLevel === 'public' ? 'Make private' : 'Make public'}
+          style={{
+            backgroundColor: 'white',
+            color: theme.colors.text,
+            borderColor: theme.colors.primary,
+          }}
         >
-          {privacyLevel === 'public' ? <Unlock size={16} /> : <Lock size={16} />}
+          {privacyLevel === 'public' ? <Globe size={16} /> : <Lock size={16} />}
         </Button>
         <Label>{privacyLevel === 'public' ? 'Public' : 'Private'} gratitude</Label>
       </div>
@@ -111,8 +114,9 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
           onClick={getRandomPrompt}
           className="button-hover"
           style={{ 
-            backgroundColor: theme.colors.complement,
+            backgroundColor: 'white',
             color: theme.colors.text,
+            border: `1px solid ${theme.colors.primary}`,
           }}
         >
           Get Prompt
@@ -121,23 +125,25 @@ export function GratitudeInput({ onAddGratitude, isGratitudeAddedToday }: Gratit
           onClick={handleSubmit}
           className="button-hover"
           style={{ 
-            backgroundColor: theme.colors.accent,
+            backgroundColor: 'white',
             color: theme.colors.text,
+            border: `1px solid ${theme.colors.primary}`,
           }}
         >
           Add to Vault
         </Button>
       </div>
-      <div 
-        ref={explosionRef} 
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{
-          width: '100px',
-          height: '100px',
-          background: `radial-gradient(circle, ${theme.colors.accent} 0%, transparent 70%)`,
-          opacity: 0,
-        }}
-      ></div>
+      {isExploding && (
+        <div style={{ position: 'fixed', top: explosionPosition.y, left: explosionPosition.x, zIndex: 9999 }}>
+          <ConfettiExplosion
+            particleCount={30}
+            duration={2000}
+            particleSize={8}
+            particlesShape="⭐"
+            colors={[theme.colors.primary, theme.colors.accent, theme.colors.complement]}
+          />
+        </div>
+      )}
     </div>
   )
 }

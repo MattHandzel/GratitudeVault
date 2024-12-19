@@ -20,68 +20,38 @@ async function getGratitudes() {
       const gratitudes = result.message.reverse();
       return gratitudes;
     } else {
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-async function getPublicGratitudes(publicUrl: string) {
-  try {
-    const response = await fetch(
-      process.env.NEXTAUTH_URL + `/api/public-gratitude/${publicUrl}`,
-    );
-    const result = await response.json();
-    console.log("getPublicGratitudes", result);
-
-    if (response.ok) {
-      const gratitudes = result.gratitudes.reverse();
-      return gratitudes;
-    } else {
       return [];
     }
   } catch (error) {
     console.error(error);
-
     return [];
   }
 }
 
-async function getUserInfo(publicUrl: string) {
+async function updateGratitude(gratitudeTitle, gratitudeContent, updates) {
   try {
-    const response = await fetch(
-      process.env.NEXTAUTH_URL + `/api/user-info/${publicUrl}`,
-    );
-    const result = await response.json();
+    const response = await fetch("/api/gratitude", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ gratitudeTitle, gratitudeContent, updates }),
+    });
+    console.log("Updated gratitude", response);
     if (response.ok) {
-      return result.user;
+      return true;
     } else {
-      return null;
+      return false;
     }
   } catch (error) {
     console.error(error);
-
-    return null;
+    return false;
   }
 }
 
-async function getAllPublicUrls() {
-  try {
-    const response = await fetch(
-      process.env.NEXTAUTH_URL + "/api/public-pages/",
-    );
-    const result = await response.json();
-    console.log("getAllPublicUrls", result);
-    if (response.ok) {
-      return result.publicUrls;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error(error);
-
-    return null;
-  }
+async function archiveGratitude(gratitudeTitle, gratitudeContent) {
+  return updateGratitude(gratitudeTitle, gratitudeContent, { archived: true });
 }
 
+export { addGratitude, getGratitudes, updateGratitude, archiveGratitude };
 
-export { addGratitude, getGratitudes, getPublicGratitudes, getUserInfo, getAllPublicUrls };

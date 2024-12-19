@@ -1,7 +1,7 @@
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Gratitude } from '@/lib/types'
 import { theme } from '@/lib/theme'
-import { GratitudeCard } from './GratitudeCard'
+import { GratitudeCard } from '@/components/GratitudeCard'
 
 interface PublicVaultProps {
   gratitudes: Array<Gratitude>

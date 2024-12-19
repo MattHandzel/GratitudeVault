@@ -1,17 +1,20 @@
 export const theme = {
   colors: {
-    primary: "#4A90E2",
-    secondary: "#F5F1E3",
-    accent: "#F8C24D",
-    text: "#4B4B4B",
-    complement: "#5FCFCE",
-    hover: "#FAD97C",
-    error: "#FF6B6B",
-    privateIcon: "#A1C1D0",
+    primary: '#4A90E2',
+    secondary: '#F5F1E3',
+    accent: '#F8C24D',
+    text: '#4B4B4B',
+    complement: '#5FCFCE',
+    hover: '#FAD97C',
+    error: '#FF6B6B',
+    privateIcon: '#A1C1D0',
+    family: '#FF9AA2',
+    work: '#C7CEEA',
+    personal: '#B5EAD7',
   },
   animations: {
-    buttonHover: "transform 0.2s ease-in-out",
-    cardHover: "box-shadow 0.3s ease-in-out",
+    buttonHover: 'transform 0.2s ease-in-out',
+    cardHover: 'box-shadow 0.3s ease-in-out',
     saveExplosion: `
       @keyframes saveExplosion {
         0% { transform: scale(1); opacity: 1; }
@@ -27,4 +30,5 @@ export const theme = {
       }
     `,
   },
-};
+}
+

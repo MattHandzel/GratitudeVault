@@ -10,6 +10,7 @@ body {
   color: "#4B4B4B";
 }
 
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -73,40 +74,64 @@ body {
 }
 
 .button-hover {
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .button-hover:hover {
   transform: scale(1.05);
+  filter: brightness(0.95);
 }
 
 .card-hover {
-  transition: box-shadow 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .card-hover:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
 }
 
-@keyframes saveExplosion {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.7; }
-  100% { transform: scale(2); opacity: 0; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.save-explosion {
-  animation: saveExplosion 0.5s ease-out;
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-@keyframes glisten {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
 }
 
 .glisten-effect {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  background-size: 200% 100%;
-  animation: glisten 2s infinite;
+  position: relative;
+  overflow: hidden;
 }
 
+.glisten-effect::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: glisten 3s infinite;
+}
+
+@keyframes glisten {
+  0% { transform: translateX(-50%) translateY(-50%) rotate(45deg); }
+  100% { transform: translateX(150%) translateY(150%) rotate(45deg); }
+}

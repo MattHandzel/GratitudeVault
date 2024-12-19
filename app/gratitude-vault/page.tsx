@@ -22,6 +22,7 @@ export default function GratitudeVaultPage() {
       const fetchedGratitudes = await getGratitudes()
       setGratitudes(fetchedGratitudes)
       updateLastGratitudeDate(fetchedGratitudes)
+      console.log('fetchedGratitudes', fetchedGratitudes)
     } catch (error) {
       console.error("Error fetching gratitudes:", error)
       toast({
@@ -81,7 +82,7 @@ export default function GratitudeVaultPage() {
           isGratitudeAddedToday={isGratitudeAddedToday()}
         />
       </div>
-      <Vault gratitudes={gratitudes} />
+      <Vault initialGratitudes={gratitudes} fetchGratitudes={fetchGratitudes} />
       <Toaster />
     </div>
   )
