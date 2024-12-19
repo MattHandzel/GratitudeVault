@@ -17,12 +17,14 @@ export async function generateStaticParams() {
 async function getData(publicUrl: string) {
   console.log("Getting data foor", publicUrl)
   const userInfo = await getUserInfo(publicUrl)
+  console.log("userInfo", userInfo)
   
   if (!userInfo) {
     return null
   }
 
   const publicGratitudes = await getPublicGratitudes(publicUrl)
+  console.log("publicGratitudes", publicGratitudes)
   return { publicGratitudes, userInfo }
 }
 
