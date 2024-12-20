@@ -89,7 +89,7 @@ export default function LandingPage() {
               { value: metadata.numberDaysGrateful, label: "Days of Gratefulness" }
             ].map((stat, index) => (
               <div key={index} className="bg-white rounded-lg p-6 shadow-md animate-fade-in-up" style={{animationDelay: `${index * 200}ms`}}>
-                <div className="text-4xl font-bold text-primary mb-2">{stat.value.toLocaleString()}</div>
+                <div className="text-4xl font-bold text-primary mb-2">{stat.value?.toLocaleString()}</div>
                 <div className="text-gray-600">{stat.label}</div>
               </div>
             ))}
