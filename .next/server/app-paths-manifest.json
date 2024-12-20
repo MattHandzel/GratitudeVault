@@ -1,6 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/vault/page": "app/vault/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/gratitude/route": "app/api/gratitude/route.js"
+  "/api/gratitude-vault-metadata/route": "app/api/gratitude-vault-metadata/route.js"
 }
