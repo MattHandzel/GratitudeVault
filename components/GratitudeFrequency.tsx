@@ -2,9 +2,10 @@
 import { useEffect, useState } from 'react'
 import { theme } from '@/lib/theme'
 import { Card, CardContent } from '@/components/ui/card'
+import { Gratitude } from '@/lib/types'
 
 interface GratitudeFrequencyProps {
-  gratitudes: Array<{ createdTimestamp: string; archived?: boolean }>
+  gratitudes: Gratitude[]
 }
 
 interface Stats {
@@ -25,57 +26,84 @@ export function GratitudeFrequency({ gratitudes }: GratitudeFrequencyProps) {
     currentStreak: 0,
     longestStreak: 0,
   })
+const endOfThisWeek = () => {
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const daysUntilEndOfWeek = 6 - dayOfWeek; // Saturday is the 6th day of the week
+  const endOfWeek = new Date(now);
+  endOfWeek.setDate(now.getDate() + daysUntilEndOfWeek);
+  endOfWeek.setHours(23, 59, 59, 999); // Set time to 11:59:59.999 pm
+  return endOfWeek;
+};
+
+const endOfWeekDate = endOfThisWeek();
+
+const getLocalDate = (timestamp) => {
+  const localDate = new Date(timestamp);
+  localDate.setHours(0, 0, 0, 0); // Normalize to midnight
+  return localDate;
+};
+const today = getLocalDate(Date.now());
+const todayWeekIndex = 0;
+const todayDayIndex = Math.floor( today.getDay() );
+console.log("today day index",todayDayIndex);
+
 
   useEffect(() => {
-    const activeGratitudes = gratitudes.filter(g => !g.archived)
-    const now = new Date()
-    const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate())
-    const data: number[][] = Array(52).fill(0).map(() => Array(7).fill(0))
-    const monthLabels: string[] = []
-    const daysWithGratitude = new Set<string>()
-    
-    // Calculate frequency data and gather days with gratitudes
-    activeGratitudes.forEach(gratitude => {
-      const date = new Date(gratitude.createdTimestamp)
-      if (date >= oneYearAgo) {
-        const weekIndex = Math.floor((now.getTime() - date.getTime()) / (7 * 24 * 60 * 60 * 1000))
-        const dayIndex = date.getDay()
-        if (weekIndex < 52) {
-          data[51 - weekIndex][dayIndex]++
-          daysWithGratitude.add(date.toISOString().split('T')[0])
-        }
-      }
-    })
 
-    // Calculate stats
-    
+const activeGratitudes = gratitudes.filter(g => !g.archived);
+
+console.log("end of week date",endOfWeekDate);
+const now = endOfWeekDate;
+const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+const data = Array(52).fill(0).map(() => Array(7).fill(0));
+const monthLabels = [];
+const daysWithGratitude = new Set();
+
+// Helper to get the user's local date
+
+// Calculate frequency data and gather days with gratitudes
+activeGratitudes.forEach(gratitude => {
+  const localDate = getLocalDate(gratitude.createdTimestamp);
+  if (localDate >= oneYearAgo) {
+    console.log(`We are looking at gratitude ${gratitude.title}`)
+    const weekIndex = Math.floor((now - localDate) / (7 * 24 * 60 * 60 * 1000));
+    const dayIndex = localDate.getDay(); // Sunday is 0, Saturday is 6
+    if (weekIndex < 52) {
+      console.log(`Gratitude on ${localDate.toISOString()} is added to week ${weekIndex} and day ${dayIndex}`);
+      data[51 - weekIndex][dayIndex]++;
+      daysWithGratitude.add(localDate.toISOString().split('T')[0]); // Store as ISO date string
+    }
+  }
+});
+
+// Sort and process streaks
 const sortedDates = Array.from(daysWithGratitude)
   .map(date => new Date(date))
   .sort((a, b) => a - b);
 
+for(let i = 0; i < sortedDates.length; i++) {
+  console.log(`Date ${i}: ${sortedDates[i].toISOString()}`);
+}
+
 let currentStreak = 0;
 let longestStreak = 0;
-let tempStreak = 1; // Initialize to 1 since a single day is a streak
-
-const today = new Date();
-today.setHours(0, 0, 0, 0); // Normalize today to midnight
+let tempStreak = 1;
+const today = getLocalDate(Date.now());
 
 // Calculate streaks
 for (let i = 1; i < sortedDates.length; i++) {
   const currentDate = sortedDates[i];
   const previousDate = sortedDates[i - 1];
-
   const diffInDays = (currentDate - previousDate) / (24 * 60 * 60 * 1000);
 
   if (diffInDays === 1) {
     tempStreak++;
   } else {
-    tempStreak = 1; // Reset streak if not consecutive
+    tempStreak = 1;
   }
 
-  if (tempStreak > longestStreak) {
-    longestStreak = tempStreak;
-  }
+  longestStreak = Math.max(longestStreak, tempStreak);
 }
 
 // Check for current streak
@@ -86,34 +114,35 @@ for (let i = sortedDates.length - 1; i >= 0; i--) {
   if (diffFromToday === 0 || diffFromToday === 1) {
     currentStreak++;
   } else {
-    break; // Stop checking once the streak breaks
+    break;
   }
 }
 
-    const iDontWant13Months = 4
-    // Generate month labels
-    for (let i = 0; i < 52 - iDontWant13Months; i++) {
-      const date = new Date(now.getTime() - (51 - iDontWant13Months - i) * 7 * 24 * 60 * 60 * 1000)
-      const monthName = date.toLocaleString('default', { month: 'short' })
-      if (i === 0 || monthName !== monthLabels[monthLabels.length - 1]) {
-        monthLabels.push(monthName)
-      }
-    }
+// Generate month labels
+const iDontWant13Months = 4;
+for (let i = 0; i < 52 - iDontWant13Months; i++) {
+  const date = new Date(now.getTime() - (51 - iDontWant13Months - i) * 7 * 24 * 60 * 60 * 1000);
+  const monthName = date.toLocaleString('default', { month: 'short' });
+  if (i === 0 || monthName !== monthLabels[monthLabels.length - 1]) {
+    monthLabels.push(monthName);
+  }
+}
 
-    setFrequencyData(data)
-    setMonths(monthLabels)
-    setStats({
-      totalGratitudes: activeGratitudes.length,
-      totalDays: daysWithGratitude.size,
-      averagePerDay: daysWithGratitude.size > 0 
-        ? Number((activeGratitudes.length / daysWithGratitude.size).toFixed(1))
-        : 0,
-      currentStreak,
-      longestStreak,
-    })
+setFrequencyData(data);
+setMonths(monthLabels);
+setStats({
+  totalGratitudes: activeGratitudes.length,
+  totalDays: daysWithGratitude.size,
+  averagePerDay: daysWithGratitude.size > 0
+    ? Number((activeGratitudes.length / daysWithGratitude.size).toFixed(1))
+    : 0,
+  currentStreak,
+  longestStreak,
+});
   }, [gratitudes])
 
-  const getColor = (count: number) => {
+  const getColor = (count: number, weekIndex:number, dayIndex:number) => {
+    if (weekIndex==0 && dayIndex>todayDayIndex) return theme.colors.hide
     if (count === 0) return '#ebedf0'
     if (count < 3) return theme.colors.accent + '40'
     if (count < 5) return theme.colors.accent + '80'
@@ -137,12 +166,12 @@ for (let i = sortedDates.length - 1; i >= 0; i--) {
             <div>
               <span className="font-semibold">{stats.averagePerDay}</span> average per day
             </div>
-            <div>
+            {/*<div>
               <span className="font-semibold">{stats.currentStreak}</span> day streak
             </div>
             <div>
               <span className="font-semibold">{stats.longestStreak}</span> day record
-            </div>
+            </div>*/}
           </div>
         </div>
         
@@ -171,10 +200,10 @@ for (let i = sortedDates.length - 1; i >= 0; i--) {
                     key={dayIndex}
                     className="w-4 h-4 transition-all duration-200 hover:scale-110"
                     style={{ 
-                      backgroundColor: getColor(count),
+                      backgroundColor: getColor(count, 51 - weekIndex, dayIndex),
                       borderRadius: theme.borderRadius.sm,
                     }}
-                    title={`${count} gratitudes on ${new Date(Date.now() - ((51 - weekIndex) * 7 + dayIndex) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { 
+                    title={`${count} gratitudes on ${new Date(endOfWeekDate - ((51 - weekIndex) * 7 + 6 - dayIndex) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { 
                       weekday: 'long',
                       year: 'numeric',
                       month: 'long',

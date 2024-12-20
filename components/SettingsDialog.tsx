@@ -1,6 +1,7 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
+import LogoutButton from '@/components/LogoutButton'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -128,14 +129,8 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
             <Button variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button 
-              onClick={() => signIn('google', { callbackUrl: '/vault' })}
-              variant="outline"
-              className="w-full mb-4"
-            >
-              Account
-            </Button>
-            <Button onClick={() => onOpenChange(false)}>
+<LogoutButton/>
+<Button onClick={() => onOpenChange(false)}>
               Save Changes
             </Button>
           </div>
