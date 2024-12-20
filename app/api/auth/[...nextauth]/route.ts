@@ -69,11 +69,11 @@ export const authOptions = {
     async session({ session, token }) {
       session.user.id = crypto
         .createHash("sha256")
-        .update(session.user.email)
+        .update(session.user.email + process.env.SESSION_SECRET)
         .digest("hex");
       session.user.publicUrl = crypto
         .createHash("sha256")
-        .update(session.user.id)
+        .update(session.user.id + process.env.SESSION_SECRET)
         .digest("hex");
       return session;
     },

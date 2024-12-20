@@ -4,6 +4,8 @@ import { theme } from '@/lib/theme'
 import { Card, CardContent } from '@/components/ui/card'
 import { Gratitude } from '@/lib/types'
 
+
+// TODO: Gratitude history color is based on tag color
 interface GratitudeFrequencyProps {
   gratitudes: Gratitude[]
 }
@@ -194,9 +196,11 @@ setStats({
           </div>
           <div className="flex gap-1 w-full min-h-[160px] justify-between mt-6">
             {frequencyData.map((week, weekIndex) => (
+
+    ( 
               <div key={weekIndex} className="flex flex-col gap-1">
                 {week.map((count, dayIndex) => (
-                  <div
+                  (!(weekIndex==0 && dayIndex>todayDayIndex))&&(<div
                     key={dayIndex}
                     className="w-4 h-4 transition-all duration-200 hover:scale-110"
                     style={{ 
@@ -210,9 +214,9 @@ setStats({
                       day: 'numeric'
                     })}`}
                   />
-                ))}
+                )))}
               </div>
-            ))}
+            )))}
           </div>
           <div className="flex items-center justify-end gap-2" style={{ color: theme.colors.text.muted }}>
             <span className="text-sm">Less</span>

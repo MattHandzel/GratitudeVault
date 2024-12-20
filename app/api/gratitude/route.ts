@@ -5,6 +5,7 @@ import clientPromise from "@/lib/mongodb";
 
 async function handler(req, res) {
   const session = await getServerSession(authOptions);
+  console.log("session", session);
 
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -1,16 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/about/page": "app/about/page.js",
-  "/api/gratitude/route": "app/api/gratitude/route.js",
-  "/api/public-gratitude/[publicUrl]/route": "app/api/public-gratitude/[publicUrl]/route.js",
-  "/api/public-pages/route": "app/api/public-pages/route.js",
-  "/api/user-info/[publicUrl]/route": "app/api/user-info/[publicUrl]/route.js",
-  "/api/vault-metadata/route": "app/api/vault-metadata/route.js",
-  "/auth/signin/page": "app/auth/signin/page.js",
-  "/page": "app/page.js",
-  "/privacy-policy/page": "app/privacy-policy/page.js",
-  "/terms-of-service/page": "app/terms-of-service/page.js",
   "/vault/page": "app/vault/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/vault/[publicUrl]/page": "app/vault/[publicUrl]/page.js"
+  "/api/gratitude/route": "app/api/gratitude/route.js"
 }
