@@ -15,3 +15,9 @@ export const GRATITUDE_PROMPTS = [
   "What's something about your home that you appreciate?",
   "Who's someone that taught you something valuable?",
 ];
+
+export const TAGS = [
+  "fitness",
+  "misc",
+  // Add more tags
+];

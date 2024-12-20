@@ -53,5 +53,50 @@ async function archiveGratitude(gratitudeTitle, gratitudeContent) {
   return updateGratitude(gratitudeTitle, gratitudeContent, { archived: true });
 }
 
-export { addGratitude, getGratitudes, updateGratitude, archiveGratitude };
+async function getUserInfo(publicUrl: string) {
+  try {
+    const response = await fetch(
+      process.env.NEXTAUTH_URL + `/api/user-info/${publicUrl}`,
+    );
+    const result = await response.json();
+    if (response.ok) {
+      return result.user;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
 
+    return null;
+  }
+}
+
+async function getPublicGratitudes(publicUrl: string) {
+  try {
+    const response = await fetch(
+      process.env.NEXTAUTH_URL + `/api/public-gratitude/${publicUrl}`,
+    );
+    const result = await response.json();
+    console.log("getPublicGratitudes", result);
+
+    if (response.ok) {
+      const gratitudes = result.gratitudes.reverse();
+      return gratitudes;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
+}
+
+export {
+  addGratitude,
+  getGratitudes,
+  updateGratitude,
+  archiveGratitude,
+  getUserInfo,
+  getPublicGratitudes,
+};

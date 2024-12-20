@@ -11,7 +11,7 @@ export default function SignIn() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    signIn('email', { email, callbackUrl: '/gratitude-vault' })
+    signIn('email', { email, callbackUrl: '/vault' })
   }
 
   return (
@@ -50,7 +50,7 @@ export default function SignIn() {
             </div>
           </div>
           <div className="mt-6">
-            <Button onClick={() => signIn('google', { callbackUrl: '/gratitude-vault' })} className="w-full">
+            <Button onClick={() => signIn('google', { callbackUrl: '/vault' })} className="w-full">
               Sign in with Google
             </Button>
           </div>

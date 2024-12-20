@@ -1,1 +1,10 @@
-{}
+{
+  "/vault/page": "app/vault/page.js",
+  "/auth/signin/page": "app/auth/signin/page.js",
+  "/vault/[publicUrl]/page": "app/vault/[publicUrl]/page.js",
+  "/page": "app/page.js",
+  "/api/user-info/[publicUrl]/route": "app/api/user-info/[publicUrl]/route.js",
+  "/api/public-gratitude/[publicUrl]/route": "app/api/public-gratitude/[publicUrl]/route.js",
+  "/api/gratitude/route": "app/api/gratitude/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
+}

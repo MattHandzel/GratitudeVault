@@ -3,10 +3,21 @@ import { Button } from '@/components/ui/button'
 import { CheckCircle } from 'lucide-react'
 import { signIn } from 'next-auth/react'
 
-
+import {useSession} from 'next-auth/react'
+import {useEffect} from 'react'
+import {useRouter} from 'next/navigation'
 
 export default function LandingPage() {
-  //const metadata = await fetch('/api/gratitude-vault-metadata').then((res) => res.json())
+
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  useEffect(() => {
+    if (status === 'authenticated') {
+      // TODO: When email login is enabled change this to that
+      router.push('/vault')
+    } 
+  }, [status, router])
+  //const metadata = await fetch('/api/vault-metadata').then((res) => res.json())
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-primary text-primary-foreground py-4">
@@ -19,7 +30,7 @@ export default function LandingPage() {
         <section className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Unlock Happiness Through Gratitude</h2>
           <p className="text-xl mb-6">Your personal space to reflect, appreciate, and share what matters most.</p>
-            <Button onClick={() => signIn('google', { callbackUrl: '/gratitude-vault' })} >
+            <Button onClick={() => signIn('google', { callbackUrl: '/vault' })} >
               Be Grateful!
             </Button>
         </section>
