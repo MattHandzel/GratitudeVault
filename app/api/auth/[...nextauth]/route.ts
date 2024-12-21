@@ -8,6 +8,13 @@ import { UserSettings } from "@/lib/types";
 import crypto from "crypto";
 import { ThemeProvider } from "@/components/theme-provider";
 
+function encrypt(str: string) {
+  return crypto
+    .createHash("sha256")
+    .update(str + process.env.SESSION_SECRET)
+    .digest("hex");
+}
+
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -27,23 +34,15 @@ export const authOptions = {
 
   callbacks: {
     async signIn({ user }) {
-      console.log("Sign in attempt :)");
       const client = await clientPromise;
       const db = client.db(process.env.DATABASE_NAME);
       const usersCollection = db.collection(process.env.COLLECTION_NAME);
 
       // Check if user already exists
-      const existingUser = await usersCollection.findOne({ email: user.email });
+      const userId = encrypt(user.email);
+      const existingUser = await usersCollection.findOne({ id: userId });
       if (!existingUser) {
-        const userId = crypto
-          .createHash("sha256")
-          .update(user.email)
-          .digest("hex");
-
-        const publicUrl = crypto
-          .createHash("sha256")
-          .update(userId)
-          .digest("hex");
+        const publicUrl = encrypt(userId);
 
         await usersCollection.insertOne({
           id: userId,
@@ -67,18 +66,23 @@ export const authOptions = {
       return url.startsWith(baseUrl) ? url : baseUrl + url;
     },
     async session({ session, token }) {
-      session.user.id = crypto
-        .createHash("sha256")
-        .update(session.user.email + process.env.SESSION_SECRET)
-        .digest("hex");
-      session.user.publicUrl = crypto
-        .createHash("sha256")
-        .update(session.user.id + process.env.SESSION_SECRET)
-        .digest("hex");
+      console.log("siriencrlyping", encrypt("teresawalkosz@hotmail.com"));
+      console.log(
+        "siriencrlypingplubcs",
+        encrypt(encrypt("teresawalkosz@hotmail.com")),
+      );
+      console.log("evcrlyping", encrypt("sirihaasanallamothu28@gmail.com"));
+      console.log(
+        "evcrlypinpublicg",
+        encrypt(encrypt("sirihaasanallamothu28@gmail.com")),
+      );
+      session.user.id = encrypt(session.user.email);
+      session.user.publicUrl = encrypt(session.user.id);
       return session;
     },
     async jwt({ token, user }) {
       //console.log("tuser", user)
+
       if (user) {
         // dude
         token.sub = user.id; // Attach MongoDB user ID to the token

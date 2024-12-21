@@ -200,7 +200,7 @@ setStats({
     ( 
               <div key={weekIndex} className="flex flex-col gap-1">
                 {week.map((count, dayIndex) => (
-                  (!(weekIndex==0 && dayIndex>todayDayIndex))&&(<div
+                  (!(weekIndex==51 && dayIndex>todayDayIndex))&&(<div
                     key={dayIndex}
                     className="w-4 h-4 transition-all duration-200 hover:scale-110"
                     style={{ 
