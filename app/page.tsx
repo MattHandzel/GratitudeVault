@@ -27,14 +27,18 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary to-complement">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary to-secondary">
       <header className="container mx-auto py-6 flex justify-between items-center">
         <div className="text-2xl font-bold text-white">Gratitude Vault</div>
+        {
+        /*
         <nav>
           <Button variant="ghost" className="text-white hover:text-accent">About</Button>
           <Button variant="ghost" className="text-white hover:text-accent">Features</Button>
           <Button variant="ghost" className="text-white hover:text-accent">Contact</Button>
         </nav>
+        */
+        }
       </header>
 
       <main className="flex-grow container mx-auto px-4 py-12">
@@ -49,7 +53,7 @@ export default function LandingPage() {
             <Button 
               onClick={() => signIn('google', { callbackUrl: '/vault' })}
               size="lg"
-              className="bg-accent text-primary hover:bg-hover transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-400"
+              className="bg-accent text-secondary hover:bg-hover transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-400"
             >
               Be Grateful!
             </Button>
@@ -89,7 +93,7 @@ export default function LandingPage() {
           {[
             { icon: CheckCircle, title: "Set up in 1 minute", description: "Quick and easy onboarding process" },
             { icon: Heart, title: "Share your gratitude", description: "Inspire others with your public vault" },
-            { icon: CheckCircle, title: "Daily reminders", description: "Never miss a day of gratitude" }
+            { icon: CheckCircle, title: "Markdown Formatting", description: "Modern formatting used everywhere" }
           ].map((feature, index) => (
             <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300 animate-fade-in-up" style={{animationDelay: `${index * 200}ms`}}>
               <feature.icon className="w-12 h-12 text-primary mb-4" />
