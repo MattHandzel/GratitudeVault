@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { CheckCircle, Heart } from 'lucide-react'
+import { CheckCircle, Heart, Video } from 'lucide-react'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -55,14 +55,32 @@ export default function LandingPage() {
             </Button>
           </div>
           <div className="lg:w-1/2 relative">
-            <div className="w-full h-[400px] bg-white rounded-lg shadow-xl overflow-hidden animate-float">
-              <Image
-                src="/placeholder.svg"
-                alt="Gratitude Vault Demo"
-                layout="fill"
-                objectFit="cover"
-                className="animate-fade-in"
-              />
+            <div className="w-full h-[380px] bg-white rounded-lg shadow-xl overflow-hidden animate-float">
+            {
+              //<Image
+              //
+              //  src="/gratitude-vault-demo-image.png"
+              //  alt="Gratitude Vault Demo"
+              //  layout="fill"
+              //  objectFit="cover"
+              //  className="animate-fade-in"
+              ///>
+            }
+
+            {
+            //<Video
+            //className="absolute w-16 h-16 text-white animate-pulse"
+            //style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+            //src = "/gratitude-vault-demo.webm"
+            //alt="Gratitude Vault Demo"
+              }
+    <video 
+        src="/gratitude-vault-demo.webm" // Relative to the "public" folder
+        controls // Adds playback controls
+      >
+      Your browser does not support the video tag.
+    </video>
+            
             </div>
           </div>
         </div>

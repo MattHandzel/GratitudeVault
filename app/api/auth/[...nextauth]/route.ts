@@ -66,16 +66,6 @@ export const authOptions = {
       return url.startsWith(baseUrl) ? url : baseUrl + url;
     },
     async session({ session, token }) {
-      console.log("siriencrlyping", encrypt("teresawalkosz@hotmail.com"));
-      console.log(
-        "siriencrlypingplubcs",
-        encrypt(encrypt("teresawalkosz@hotmail.com")),
-      );
-      console.log("evcrlyping", encrypt("sirihaasanallamothu28@gmail.com"));
-      console.log(
-        "evcrlypinpublicg",
-        encrypt(encrypt("sirihaasanallamothu28@gmail.com")),
-      );
       session.user.id = encrypt(session.user.email);
       session.user.publicUrl = encrypt(session.user.id);
       return session;
