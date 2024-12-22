@@ -55,7 +55,7 @@ export default function LandingPage() {
             </Button>
           </div>
           <div className="lg:w-1/2 relative">
-            <div className="w-full h-[380px] bg-white rounded-lg shadow-xl overflow-hidden animate-float">
+            <div className="w-full h-full bg-white rounded-lg shadow-xl overflow-hidden animate-float">
             {
               //<Image
               //
@@ -78,7 +78,7 @@ export default function LandingPage() {
         src="/gratitude-vault-demo.webm" // Relative to the "public" folder
         controls // Adds playback controls
       >
-      Your browser does not support the video tag.
+      Your browser does not support the video tag :(. 
     </video>
             
             </div>

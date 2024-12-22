@@ -1,8 +1,5 @@
 {
   "/page": "app/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/vault/page": "app/vault/page.js",
-  "/vault/[publicUrl]/page": "app/vault/[publicUrl]/page.js",
-  "/api/user-info/[publicUrl]/route": "app/api/user-info/[publicUrl]/route.js",
-  "/api/public-gratitude/[publicUrl]/route": "app/api/public-gratitude/[publicUrl]/route.js"
+  "/api/vault-metadata/route": "app/api/vault-metadata/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
 }
