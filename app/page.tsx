@@ -7,7 +7,10 @@ import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+//
 //TODO: Use incremental static regeneration to update these stats instead of calling them every time.
+
+
 
 export default function LandingPage() {
   const { data: session, status } = useSession()
