@@ -6,7 +6,7 @@ import { Gratitude } from '@/lib/types'
 
 
 // TODO: Gratitude history color is based on tag color
-interface GratitudeFrequencyProps {
+interface GratitudeHistoryProps {
   gratitudes: Gratitude[]
 }
 
@@ -18,8 +18,8 @@ interface Stats {
   longestStreak: number
 }
 
-export function GratitudeFrequency({ gratitudes }: GratitudeFrequencyProps) {
-  const [frequencyData, setFrequencyData] = useState<number[][]>([])
+export function GratitudeHistory({ gratitudes }: GratitudeHistoryProps) {
+  const [historyData, setHistoryData] = useState<number[][]>([])
   const [months, setMonths] = useState<string[]>([])
   const [stats, setStats] = useState<Stats>({
     totalGratitudes: 0,
@@ -130,7 +130,7 @@ for (let i = 0; i < 52 - iDontWant13Months; i++) {
   }
 }
 
-setFrequencyData(data);
+setHistoryData(data);
 setMonths(monthLabels);
 setStats({
   totalGratitudes: activeGratitudes.length,
@@ -146,13 +146,12 @@ setStats({
   const getColor = (count: number, weekIndex:number, dayIndex:number) => {
     if (weekIndex==0 && dayIndex>todayDayIndex) return theme.colors.hide
     if (count === 0) return '#ebedf0'
-    if (count < 3) return theme.colors.accent + '40'
-    if (count < 5) return theme.colors.accent + '80'
-    return theme.colors.accent
+
+    return theme.colors.accent + Math.min(20 + count * 40, 255).toString(16);
   }
 
   return (
-    <Card className="p-6 bg-white">
+    <Card className="p-6 bg-white overflow-x-auto">
       <div className="space-y-4">
         <div>
           <h3 className="text-2xl font-semibold mb-2" style={{ color: theme.colors.text.primary }}>
@@ -194,8 +193,8 @@ setStats({
               </div>
             ))}
           </div>
-          <div className="flex gap-1 w-full min-h-[160px] justify-between mt-6">
-            {frequencyData.map((week, weekIndex) => (
+          <div className="flex gap-1 w-full min-h-[160px] justify-between mt-6 md:w-auto">
+            {historyData.map((week, weekIndex) => (
 
     ( 
               <div key={weekIndex} className="flex flex-col gap-1">

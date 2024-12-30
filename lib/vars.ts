@@ -14,10 +14,19 @@ export const GRATITUDE_PROMPTS = [
   "What's a lesson you learned recently that you're thankful for?",
   "What's something about your home that you appreciate?",
   "Who's someone that taught you something valuable?",
-];
-
-export const TAGS = [
-  "fitness",
-  "misc",
-  // Add more tags
+  "What is one good thing that I often take for granted?",
+  "Who do I need to thank?",
+  "What are three things I'm grateful for, no matter how small?",
+  "Describe your favorite moment of each part of the day.",
+  "Think of a time when you were really brave. What do you most appreciate about that experience?",
+  "What do you appreciate about your body?",
+  "What makes you feel confident?",
+  "When do you feel most supported in life?",
+  "What was the most perfect moment of your life?",
+  "What energizes you?",
+  "Who inspires you? Why?",
+  "What motivates you?",
+  "What are you most interested in?",
+  "What does it mean to thrive? When have you thrived?",
+  "What are some of your favorite traditions?",
 ];

@@ -2,7 +2,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Gratitude } from '@/lib/types'
 import { theme } from '@/lib/theme'
 import { GratitudeCard } from './GratitudeCard'
-import { GratitudeFrequency } from './GratitudeFrequency'
+import { GratitudeHistory } from './GratitudeHistory'
 
 interface PublicVaultProps {
   gratitudes: Array<Gratitude>
@@ -24,7 +24,7 @@ export function PublicVault({ gratitudes }: PublicVaultProps) {
           </div>
         )}
       </ScrollArea>
-      <GratitudeFrequency gratitudes={publicGratitudes} />
+      <GratitudeHistory gratitudes={publicGratitudes} />
     </div>
   )
 }

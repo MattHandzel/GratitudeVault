@@ -12,6 +12,7 @@ export interface Gratitude {
   privacyLevel: "private" | "friends-only" | "public";
   tags: string[];
   vault?: "public" | "private" | string;
+  encrypted?: boolean;
   linkedEntities: string[];
   mediaUrls: string[];
   category: string;

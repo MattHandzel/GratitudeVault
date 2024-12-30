@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Gratitude } from '@/lib/types'
 import { theme } from '@/lib/theme'
-import { Globe, Lock, Edit, Archive, TagIcon, Copy, Check } from 'lucide-react'
+import { Globe, Lock, Edit, Archive, TagIcon, Copy, Check, Save } from 'lucide-react'
 import { updateGratitude, archiveGratitude } from '@/lib/data'
 import { TAGS } from '@/lib/tags'
 import ReactMarkdown from 'react-markdown'
@@ -165,11 +165,11 @@ export function GratitudeCard({ gratitude, isPublicVault = false, onUpdate }: Gr
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button onClick={handleEdit} variant="outline" size="icon">
-                    <Edit size={16} />
+                    {isEditing ? <Save size={16} /> : <Edit size={16} />}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Edit gratitude</p>
+                  <p>{isEditing ? 'Save changes' : 'Edit gratitude'}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

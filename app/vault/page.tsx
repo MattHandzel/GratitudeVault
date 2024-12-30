@@ -1,16 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, forceUpdate } from 'react'
 import { GratitudeInput } from '@/components/GratitudeInput'
 import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/hooks/use-toast'
 import { getGratitudes, addGratitude } from '@/lib/data'
 import { Vault } from '@/components/Vault'
-import { GratitudeFrequency } from '@/components/GratitudeFrequency.tsx'
+import { GratitudeHistory } from '@/components/GratitudeHistory.tsx'
 import { theme } from '@/lib/theme'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+
 
 
 export default function GratitudeVaultPage() {
@@ -94,7 +95,7 @@ export default function GratitudeVaultPage() {
             isGratitudeAddedToday={isGratitudeAddedToday()}
           />
           <div className="mt-4"> </div>
-          <GratitudeFrequency gratitudes={gratitudes} />
+          <GratitudeHistory gratitudes={gratitudes} />
         </div>
         {gratitudes.length >= 0 && (<Vault initialGratitudes={gratitudes} fetchGratitudes={fetchGratitudes} />)}
         <Toaster />

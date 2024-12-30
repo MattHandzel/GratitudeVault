@@ -27,9 +27,9 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
-  pages: {
-    signIn: "/auth/signin",
-  },
+  //pages: {
+  //  signIn: "/auth/signin",
+  //},
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {

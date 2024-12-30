@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { CheckCircle, Heart, Video } from 'lucide-react'
+import { CheckCircle, Heart, Video, Lock } from 'lucide-react'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -52,8 +52,7 @@ export default function LandingPage() {
             </p>
             <Button 
               onClick={() => signIn('google', { callbackUrl: '/vault' })}
-              size="lg"
-              className="bg-accent text-secondary hover:bg-hover transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-400"
+              className="bg-accent text-secondary hover:bg-hover transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-400 text-xl h-15 rounded-md px-8"
             >
               Be Grateful!
             </Button>
@@ -91,9 +90,9 @@ export default function LandingPage() {
 
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { icon: CheckCircle, title: "Set up in 1 minute", description: "Quick and easy onboarding process" },
-            { icon: Heart, title: "Share your gratitude", description: "Inspire others with your public vault" },
-            { icon: CheckCircle, title: "Markdown Formatting", description: "Modern formatting used everywhere" }
+            { icon: CheckCircle, title: "Set up in 1 minute", description: "Login with Google and you're done ✅" },
+            { icon: Heart, title: "Share your gratitude", description: "Inspire others with your public vault 🤩" },
+            { icon: Lock, title: "Encrypted", description: "All gratitudes are encrypted from prying eyes 👀" }
           ].map((feature, index) => (
             <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300 animate-fade-in-up" style={{animationDelay: `${index * 200}ms`}}>
               <feature.icon className="w-12 h-12 text-primary mb-4" />
