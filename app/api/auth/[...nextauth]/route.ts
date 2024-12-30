@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { UserSettings } from "@/lib/types";
 import crypto from "crypto";
 import { ThemeProvider } from "@/components/theme-provider";
+import posthog from "posthog-js";
 
 function encrypt(str: string) {
   return crypto
@@ -66,8 +67,14 @@ export const authOptions = {
       return url.startsWith(baseUrl) ? url : baseUrl + url;
     },
     async session({ session, token }) {
+      // identify user
       session.user.id = encrypt(session.user.email);
       session.user.publicUrl = encrypt(session.user.id);
+
+      posthog.identify(
+        session.user.id, // Replace 'distinct_id' with your user's unique identifier
+        { email: session.user.email, name: session.user.name }, // optional: set additional person properties
+      );
       return session;
     },
     async jwt({ token, user }) {
