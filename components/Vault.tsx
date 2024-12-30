@@ -129,12 +129,10 @@ export function Vault({ initialGratitudes, fetchGratitudes }: VaultProps) {
       <div ref={scrollRef} className="h-[calc(105vh-250px)] overflow-y-auto">
         <div className="space-y-4">
           {gratitudes.map((gratitude, index) => (
-            <AnimatedCard key={gratitude.id || index} index={index}>
               <GratitudeCard
                 gratitude={gratitude}
                 onUpdate={refreshGratitudes}
               />
-            </AnimatedCard>
           ))}
         </div>
       </div>
